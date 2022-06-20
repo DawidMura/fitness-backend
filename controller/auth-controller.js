@@ -73,7 +73,7 @@ export const postLogin = async (req, res) => {
     );
 
     // Refreshtoken is saved in our database
-    const resMongo = await UserModel.updateOne({ _id: loggingUser._id }, { refreshToken })
+    const resMongo = await MemberSchema.updateOne({ _id: loggingUser._id }, { refreshToken })
 
     res.cookie('refreshToken', refreshToken, {
         httpOnly: true,
@@ -87,4 +87,10 @@ export const postLogin = async (req, res) => {
 
     // status 200 means success
     return res.status(200).json({ msg: 'successfully logged in', accessToken, userName: loggingUser.name })
+}
+
+
+export const logout = (req, res) => {
+    res.clearCookie("refreshToken");
+    res.json({ msg: "user is logged out", ok: true });
 }

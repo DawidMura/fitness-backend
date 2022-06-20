@@ -7,6 +7,7 @@ export const loginSchema = [
         .withMessage("Has to be valid email")
         .normalizeEmail(),
     body("password")
-        .isLength({ min: 5 })
-        .withMessage("Has to have at least 5 characters"),
+        .trim()
+        .isLength()
+        .withMessage("Password should'nt be empty")
 ];

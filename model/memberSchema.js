@@ -48,7 +48,7 @@ const MemberSchema = new mongoose.Schema({
 
 });
 
-
+// Pre middleware - die benutzt man für password. Wie speichern geheschte password in Datebank.
 MemberSchema.pre('save', async function (next) {
     this.password = await bcrypt.hash(this.password, 12);
     next();

@@ -19,11 +19,6 @@ const MemberSchema = new mongoose.Schema({
         required: true,
     },
 
-    repassword: {
-        type: String,
-        required: true,
-    },
-
     email: {
         type: String,
         required: true,
@@ -32,7 +27,6 @@ const MemberSchema = new mongoose.Schema({
 
     // role: {
     //     type: String,
-    //     default: standard_member,
     // },
     // refreshToken in DB speichern oder nicht?
     refreshToken: String,

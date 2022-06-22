@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script defer type="text/javascript" src="script.js"></script>
+</head>
+
+<body>
+    <h3>REGISTER</h3>
+    <form onsubmit="register(event);">
+        firstName:
+        <input name="" id="register-firstname">
+        <br />
+        lastName:
+        <input id="register-lastname">
+        <br />
+        Age:
+        <input id="register-age" type="number" min="18" max="50">
+        <br />
+        Password:
+        <input id="register-password" type="password">
+        <br />
+        Re-password:
+        <input id="register-repassword" type="password">
+        <br />
+        Email:
+        <input id="register-email" type="email">
+        <br />
+
+        Address:
+        <br />
+        Street:
+        <input id="register-street" type="text">
+        <br />
+        Number:
+        <input id="register-number" type="number">
+        <br />
+        City:
+        <input id="register-city" type="text">
+        <br />
+        ZIP-code:
+        <input id="register-zip" type="text">
+        <br />
+        <br />
+        <button type="submit">register</button>
+    </form>
+
+    <h3>LOGIN</h3>
+    <form class="login-form" onsubmit="return login(event);">
+        Email:
+        <input id="login-email" type="email">
+        <br />
+        Password:
+        <input id="login-password" type="password">
+        <br />
+        <button type="submit">login</button>
+    </form>
+
+    <form onsubmit="return logout(event);">
+        <button type="submit">logout</button>
+    </form>
+    <br />
+
+    <button onclick="getPosts()">GET POSTS</button>
+    <br />
+    <div id="posts"> </div>
+</body>
+
+</html>

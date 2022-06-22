@@ -19,7 +19,7 @@ router.post("/login",
     validateRequest,
     postLogin)
 
-router.get("/logout",
+router.post("/logout",
     logout)
 
 export default router; 

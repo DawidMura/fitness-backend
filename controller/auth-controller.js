@@ -3,23 +3,16 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import MemberSchema from "../model/memberSchema.js";
 
-const EXPIRATION_ACCESSTOKEN = '15m';
+// früher war 15m
+const EXPIRATION_ACCESSTOKEN = '1m';
 const msgAlert = "User/Password combination not found";
 
 export const postRegister = async (req, res) => {
-    // const { email } = req.body;
     try {
-        // let isEmailAlreadyInUse = await MemberSchema.find({ email });
-
-        // if (isEmailAlreadyInUse) {
-        //     res.status(401).json({ success: false, msg: "Email is already in use. Try again with another email" });
-        // }
-        // else { }
-        const newMember = new MemberSchema(req.body)
+        const newMember = new MemberSchema(req.body);
         await newMember.save();
         // status 201 the request has succeeded 
         return res.status(201).json({ success: true, insertedData: newMember })
-
 
     } catch (error) {
         res.status(200).json({ error: error.message })

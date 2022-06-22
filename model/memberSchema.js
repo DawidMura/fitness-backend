@@ -19,16 +19,17 @@ const MemberSchema = new mongoose.Schema({
         required: true,
     },
 
-    repassword: {
-        type: String,
-        required: true,
-    },
-
     email: {
         type: String,
         required: true,
         unique: true,
     },
+
+    // role: {
+    //     type: String,
+    // },
+    // refreshToken in DB speichern oder nicht?
+    refreshToken: String,
 
     address:
     {

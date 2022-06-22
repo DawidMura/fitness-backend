@@ -30,6 +30,13 @@ const MemberSchema = new mongoose.Schema({
         unique: true,
     },
 
+    // role: {
+    //     type: String,
+    //     default: standard_member,
+    // },
+    // refreshToken in DB speichern oder nicht?
+    refreshToken: String,
+
     address:
     {
         street: {

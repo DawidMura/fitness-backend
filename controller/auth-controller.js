@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import MemberSchema from "../model/memberSchema.js";
 
+// früher war 15m
 const EXPIRATION_ACCESSTOKEN = '15m';
 const msgAlert = "User/Password combination not found";
 

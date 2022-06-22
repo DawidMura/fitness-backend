@@ -3,7 +3,7 @@ import "dotenv/config";
 import mongoose from "mongoose";
 import connectToMongoose from "./util/mongoose_connect.js";
 import authRoute from "./routes/auth-routes.js";
-
+import cookieParser from "cookie-parser";
 
 const app = express();
 app.get("/", (req, res) => {
@@ -12,7 +12,8 @@ app.get("/", (req, res) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false })); // 
 app.use(authRoute);
-
+app.use(cookieParser());
+app.use(express.static('./public'))
 
 const PORT = process.env.PORT || 4001;
 

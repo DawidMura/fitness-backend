@@ -1,9 +1,14 @@
 import { body, check } from "express-validator";
-import MemberSchema from "../model/memberSchema.js";
+import MemberSchema from "./memberSchema.js";
 import mongoose from "mongoose";
 import bcrypt from 'bcrypt';
 
-export const registerSchema = [
+/*****************************************************
+ * Validierungskette  wird in express-validator 
+ * Validiert. Das bedeutet, dass Sie jede dieser Methoden
+ * verwenden können,  z.B. isEmail, etc.
+ *******************************************************/
+export const registerValidator = [
     body("firstName")
         .trim()
         .escape()

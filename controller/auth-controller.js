@@ -7,6 +7,10 @@ import MemberSchema from "../model/memberSchema.js";
 const EXPIRATION_ACCESSTOKEN = '1m';
 const msgAlert = "User/Password combination not found";
 
+/******************************************************
+ * Das ist die Function @postRegister, die für die
+ * Registrierung neue User bzw. Mitglied zuständig ist.
+ ******************************************************/
 export const postRegister = async (req, res) => {
     try {
         const newMember = new MemberSchema(req.body);
@@ -19,7 +23,12 @@ export const postRegister = async (req, res) => {
     }
 }
 
-
+/******************************************************
+ * Die @postLogin Function, wird aufgerufen, wenn der User/Mitglied
+ * schon registriert wurde, ansonst bekommt er eine Rückmeldung
+ * 'Provide Password and Email', 
+ * 
+ ******************************************************/
 export const postLogin = async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) return res.status(401).json({ success: false, error: 'Provide Password and Email' });
@@ -45,11 +54,13 @@ export const postLogin = async (req, res) => {
         return res.status(500).json({ error })
     }
 
-    // const expiresInMs = 1 * 60 * 1000 // 1 m
+    // convert time to Millisegunde
+    //const expiresInMs = 24 * 60 * 60 = 86400 seconds
+    //const expiresInMs = 24 * 60 * 60 * 1000 // 86400 * (10)³
     const expiresInMs = 24 * 60 * 60 * 1000 // 1 h
     const expiresInDate = new Date(Date.now() + expiresInMs)
 
-
+       /* Hier findet unsere token-generator @accessToken statt, */ 
     const accessToken = jwt.sign(
         {
             userName: loggingUser.name,
@@ -58,14 +69,14 @@ export const postLogin = async (req, res) => {
         , process.env.TOKEN_SECRET,
         { expiresIn: EXPIRATION_ACCESSTOKEN }
     );
-
+      /*Refreshtoken*/   
     const refreshToken = jwt.sign(
         { userId: loggingUser._id },
         process.env.REFRESH_TOKEN_SECRET,
         { expiresIn: expiresInMs / 1000 }
     );
-
-    // Refreshtoken is saved in our database
+    
+    /*Refreshtoken wird in die Datenbank menbers  gespeichert  */
     const resMongo = await MemberSchema.updateOne({ _id: loggingUser._id }, { refreshToken })
 
     res.cookie('refreshToken', refreshToken, {
@@ -82,6 +93,10 @@ export const postLogin = async (req, res) => {
     return res.status(200).json({ msg: 'successfully logged in', accessToken, userName: loggingUser.name })
 }
 
+/******************************************************
+ * function @logout, ermöglicht die Abmeldung von Browser und  löscht  
+ * die speicherte Cookie von Frontend aus.
+ ******************************************************/
 
 export const logout = (req, res) => {
     res.clearCookie("refreshToken");

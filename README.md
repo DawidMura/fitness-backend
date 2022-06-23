@@ -1,7 +1,7 @@
 # fitness-backend
 # Schritten (& schritten)
 1. User registriert sich 
-   * firtsName, lastName, etc. 
+   * firstName, lastName, etc. 
 2. User loggt sich ein
     * email, password
 3. User Daten werden validiert und auf  dem Server  gespeichgert, dabei wird ein Token erzeugt

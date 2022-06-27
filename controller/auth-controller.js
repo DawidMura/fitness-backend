@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import MemberSchema from "../model/memberSchema.js";
 
 // früher war 15m
-const EXPIRATION_ACCESSTOKEN = '1m';
+const EXPIRATION_ACCESSTOKEN = '15m';
 const msgAlert = "User/Password combination not found";
 
 /******************************************************
@@ -60,7 +60,7 @@ export const postLogin = async (req, res) => {
     const expiresInMs = 24 * 60 * 60 * 1000 // 1 h
     const expiresInDate = new Date(Date.now() + expiresInMs)
 
-       /* Hier findet unsere token-generator @accessToken statt, */ 
+    /* Hier findet unsere token-generator @accessToken statt, */
     const accessToken = jwt.sign(
         {
             userName: loggingUser.name,
@@ -69,13 +69,13 @@ export const postLogin = async (req, res) => {
         , process.env.TOKEN_SECRET,
         { expiresIn: EXPIRATION_ACCESSTOKEN }
     );
-      /*Refreshtoken*/   
+    /*Refreshtoken*/
     const refreshToken = jwt.sign(
         { userId: loggingUser._id },
         process.env.REFRESH_TOKEN_SECRET,
         { expiresIn: expiresInMs / 1000 }
     );
-    
+
     /*Refreshtoken wird in die Datenbank menbers  gespeichert  */
     const resMongo = await MemberSchema.updateOne({ _id: loggingUser._id }, { refreshToken })
 

@@ -27,7 +27,9 @@ export const registerValidator = [
         .normalizeEmail(),
     body("password")
         .isLength({ min: 5 })
-        .withMessage("Password has to be at least 5 chars"),
+        .withMessage("Password has to be at least 5 chars")
+        .matches(/\d/)
+        .withMessage('must contain a number'),
     body('repassword')
         .custom((value, { req }) => {
             if (value !== req.body.password) {

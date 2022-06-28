@@ -3,7 +3,6 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import MemberSchema from "../model/memberSchema.js";
 
-// früher war 15m
 const EXPIRATION_ACCESSTOKEN = '15m';
 const msgAlert = "User/Password combination not found";
 
@@ -54,7 +53,7 @@ export const postLogin = async (req, res) => {
         return res.status(500).json({ error })
     }
 
-    // convert time to Millisegunde
+    // convert time to Millisekunden
     //const expiresInMs = 24 * 60 * 60 = 86400 seconds
     //const expiresInMs = 24 * 60 * 60 * 1000 // 86400 * (10)³
     const expiresInMs = 24 * 60 * 60 * 1000 // 1 h
@@ -98,7 +97,64 @@ export const postLogin = async (req, res) => {
  * die speicherte Cookie von Frontend aus.
  ******************************************************/
 
-export const logout = (req, res) => {
+export const postLogout = async (req, res) => {
+
+    const refreshToken = req.cookies?.refreshToken;
+    if (!refreshToken) return res.sendStatus(204);
     res.clearCookie("refreshToken");
+    res.clearCookie('isLogged');
     res.json({ msg: "user is logged out", ok: true });
+
+    try {
+        const databaseResponse = await MemberSchema.updateOne({ refreshToken }, { refreshToken: '' })
+        // Refresh Token nicht gefunden?
+        if (databaseResponse.matchedCount === 0) return res.sendStatus(204);
+    }
+    catch (error) {
+        console.error({ error });
+        return res.status(500).json({ msg: "logged out, but couldn't delete refresh Token from DB", error })
+    }
+    return res.status(200).json({ msg: "successfully logged out" })
+}
+
+export const postRefreshToken = async (req, res) => {
+    const refreshToken = req.cookies.refreshToken;
+    if (!refreshToken) return res.status(401).send({
+        error: 'No refresh token cookie'
+    });
+
+    let loggedUser;
+    try {
+        loggedUser = await MemberSchema.findOne({
+            refreshToken
+        });
+
+        if (!loggedUser) return res.status(403).send({
+            error: 'refresh token not found'
+        })
+
+    } catch (error) {
+        console.error(error);
+        return res.json({ error: error.message })
+    }
+    try {
+        const decodedJwt = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+
+        if (loggedUser._id.toString() !== decodedJwt.userId) return res.sendStatus(403);
+    }
+    catch (error) {
+        console.error('Refresh Token verify error', error);
+        return res.sendStatus(403);
+    }
+
+    const accessToken = jwt.sign(
+        {
+            userName: loggedUser.name,
+            userId: loggedUser._id
+        },
+        process.env.TOKEN_SECRET,
+        { expiresIn_: EXPIRATION_ACCESSTOKEN }
+    );
+
+    return res.status(200).json({ msg: 'successfully refreshed token', accessToken, userName: loggedUser.name })
 }

@@ -33,11 +33,11 @@ const MemberSchema = new mongoose.Schema({
         unique: true,
     },
 
-    // role: {
-    //     type: String,
-    // },
-    // refreshToken in DB speichern oder nicht?
-    refreshToken: String,
+    roles: {
+        type: [String],
+        enum: ["user", "trainer", "admin"],
+        default: ["user"]
+    },
 
     address:
     {

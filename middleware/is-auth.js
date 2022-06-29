@@ -16,7 +16,7 @@ export default async (req, res, next) => {
     // wenn etwas nicht geklappt hat (z.B. ungültig,abgelaufen)
     if (decodedToken) {
       req.userId = decodedToken.userId;
-      req.userName = decodedToken.userName;
+      req.email = decodedToken.email;
     }
   } catch (error) {
     console.debug("JWT Verification Error:", error.message);

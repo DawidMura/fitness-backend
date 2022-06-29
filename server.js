@@ -5,7 +5,6 @@ import connectToMongoose from "./util/mongoose_connect.js";
 import authRoute from "./routes/auth-routes.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-
 const app = express();
 app.get("/", (req, res) => {
     // res.send("Welcome");
@@ -13,10 +12,10 @@ app.get("/", (req, res) => {
 })
 app.use(express.json());
 app.use(express.urlencoded({ extended: false })); // 
-app.use(authRoute);
 app.use(cookieParser());
-// app.use(express.static('./public'))
-app.use(cors());
+app.use(express.static('./public'))
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(authRoute);
 
 const PORT = process.env.PORT || 4001;
 

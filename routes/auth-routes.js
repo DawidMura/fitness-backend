@@ -3,7 +3,6 @@ import { postRegister, postLogin, postLogout } from "../controller/auth-controll
 import { validateRequest } from "../middleware/validateRequest.js";
 import { registerValidator } from "../model/registerValidator.js"
 import { loginValidator } from "../model/loginValidator.js"
-
 const router = express.Router();
 
 router.post(
@@ -28,5 +27,7 @@ router.post("/logout",
 
 // isAuth => muss man jwt.verify() bentuzen für accessToken zu überprüfen
 //router.post("/userPanel", isAuth, postUserPanel)
+
+// router.get("/userPanel", getUserPanel)
 
 export default router; 

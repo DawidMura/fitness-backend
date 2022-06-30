@@ -6,14 +6,11 @@ export default async (req, res, next) => {
   if (!authHeader.startsWith('Bearer ')) return res.sendStatus(401);
 
   const token = authHeader.split(' ')[1];
-  // debugger;
+  console.log(token);
   if (!token) return res.sendStatus(401);
 
   try {
-    const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET); // checked auch expireDate
-
-    // nachfolgendes if eigentlich unnötig, da .verify immer einen Fehler wirft, 
-    // wenn etwas nicht geklappt hat (z.B. ungültig,abgelaufen)
+    const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
     if (decodedToken) {
       req.userId = decodedToken.userId;
       req.email = decodedToken.email;

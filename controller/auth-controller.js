@@ -84,8 +84,6 @@ export const postLogin = async (req, res) => {
 
     return res.redirect("http://localhost:3000/userPanel");
 
-}
-
 /******************************************************
  * function @logout, ermöglicht die Abmeldung von Browser und  löscht  
  * die speicherte Cookie von Frontend aus.

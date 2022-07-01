@@ -13,11 +13,10 @@ const router = express.Router()
 
 // Endpoint nur erreichbar, wenn authorisiert
 router.get("/userPanel", isAuth, (req, res) => {
-    res.redirect("http://localhost:3000/userPanel");
-    // res.json({
-    //     success: true, secretMessage:
-    //         `${req.userName}, die Antwort auf die große Frage nach dem Leben, dem Universum und allem lautet... 42!`
-    // });
+    res.json({
+        success: true
+    });
+
 })
 
 export default router;

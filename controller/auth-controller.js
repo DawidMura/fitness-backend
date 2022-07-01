@@ -81,9 +81,7 @@ export const postLogin = async (req, res) => {
 
     // status 200 means success
     // return res.status(200).json({ msg: 'successfully logged in', accessToken, email: loggingUser.email })
-
     return res.redirect("http://localhost:3000/userPanel");
-
 }
 
 /******************************************************

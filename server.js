@@ -20,6 +20,7 @@ app.use(cookieParser());
 // Test script with JavaScript & DOM
 // app.use(express.static('./public'))
 app.use(cors({ origin: `http://localhost:${PORT_CLIENT}`, credentials: true }));
+
 app.use(authRoute);
 app.use(apiRoutes);
 const PORT = process.env.PORT || 4001;

@@ -1,11 +1,7 @@
 import mongoose from "mongoose";
 
-const CourseSchema = new mongoose.Schema({
+const DevicesSchema = new mongoose.Schema({
     name: {
-        type: String,
-        required: true,
-    },
-    trainer: {
         type: String,
         required: true,
     },
@@ -26,14 +22,14 @@ const CourseSchema = new mongoose.Schema({
     begin: {
         type: Date,
         default: () => new Date('2022-06-22:11:00'),
-        immutable: true,
+        required: true,
     },
 
     end: {
         type: Date,
         default: () => new Date('2022-06-22:12:00'),
-        immutable: true,
+        required: true,
     },
 })
 
-export default mongoose.model("Course", CourseSchema);
+export default mongoose.model("Devices", DevicesSchema);

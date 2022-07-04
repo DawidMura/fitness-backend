@@ -1,5 +1,10 @@
 import express from "express";
 import isAuth from "../middleware/is-auth.js";
+import {
+    getCourses, getOneCourse, addCourse, updateCourse, deleteCourse
+} from "../controller/course-controller.js";
+import { validateRequest } from "../middleware/validateRequest.js";
+import { courseValidator } from "../model/courseValidator.js"
 
 
 const router = express.Router()
@@ -16,6 +21,16 @@ router.get("/userPanel", isAuth, (req, res) => {
     res.json({
         success: true
     });
+})
+
+router.route("/courses")
+    .get(getCourses)
+    .post(courseValidator, validateRequest, isAuth, addCourse);
+
+router.route("/courses/:id")
+    .get(getOneCourse)
+    .put(courseValidator, validateRequest, isAuth, updateCourse)
+    .delete(isAuth, deleteCourse);
 
 })
 

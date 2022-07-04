@@ -39,6 +39,13 @@ const MemberSchema = new mongoose.Schema({
         default: ["user"]
     },
 
+    // courses: [
+    //     {
+    //         type: Schema.Types.ObjectId,
+    //         ref: 'Course'
+    //     }
+    // ],
+
     address:
     {
         street: {

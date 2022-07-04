@@ -13,10 +13,10 @@ const router = express.Router()
 
 // Endpoint nur erreichbar, wenn authorisiert
 router.get("/userPanel", isAuth, (req, res) => {
-
     res.json({
         success: true
     });
+
 })
 
 export default router;

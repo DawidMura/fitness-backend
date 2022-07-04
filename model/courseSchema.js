@@ -1,44 +1,123 @@
 import mongoose from "mongoose";
 
 const CourseSchema = new mongoose.Schema({
-    yoga: {
-        type: [String],
-        enum: ["yoga-1", "yoga-2", "yoga-3"]
+    name: {
+        type: String,
+        required: true,
     },
-
-    zumba: {
-        type: [String],
-        enum: ["zumba-1", "zumba-2", "zumba-3"]
+    trainer: {
+        type: String,
+        required: true,
     },
-    // selbstverteidugung DE=> selfDefense ENG
-    selfDefense: {
-        type: [String],
-        enum: ["selfDefense-1", "selfDefense-2", "selfDefense-3"]
+    complete: {
+        type: Boolean,
+        default: false,
     },
     created_at: {
         type: Date,
         default: () => new Date(),
         immutable: true,
     },
-
+    updated_at: {
+        type: Date,
+        default: () => new Date(),
+        immutable: true,
+    },
     begin: {
         type: Date,
-        default: () => new Date(),
+        default: () => new Date('2022-06-22:11:00').toString(),
         immutable: true,
     },
 
-    hourTime: {
+    end: {
         type: Date,
-        default: () => new Date(),
+        default: () => new Date('2022-06-22:12:00'),
         immutable: true,
     },
-    complete: {
-        type: Boolean,
-    },
+    // yoga: {
+    //     // enum: ["yoga-1", "yoga-2", "yoga-3"],
+    //     trainer: {
+    //         type: String,
+    //         required: true
+    //     },
 
-    trainer: {
-        type: "String",
-    }
+    //     created_at: {
+    //         type: Date,
+    //         default: () => new Date(),
+    //         immutable: true,
+    //     },
+
+    //     begin: {
+    //         type: Date,
+    //         default: () => new Date(),
+    //         immutable: true,
+    //     },
+
+    //     hourTime: {
+    //         type: Date,
+    //         default: () => new Date(),
+    //         immutable: true,
+    //     },
+    //     complete: {
+    //         type: Boolean,
+    //     },
+    // },
+
+    // zumba: {
+    //     // enum: ["zumba-1", "zumba-2", "zumba-3"],
+    //     trainer: {
+    //         type: String,
+    //         required: true
+    //     },
+
+    //     created_at: {
+    //         type: Date,
+    //         default: () => new Date(),
+    //         immutable: true,
+    //     },
+
+    //     begin: {
+    //         type: Date,
+    //         default: () => new Date(),
+    //         immutable: true,
+    //     },
+
+    //     hourTime: {
+    //         type: Date,
+    //         default: () => new Date(),
+    //         immutable: true,
+    //     },
+    //     complete: {
+    //         type: Boolean,
+    //     },
+    // },
+    // // selbstverteidugung DE=> selfDefense ENG
+    // selfDefense: {
+    //     trainer: {
+    //         type: String,
+    //         required: true
+    //     },
+    //     created_at: {
+    //         type: Date,
+    //         default: () => new Date(),
+    //         immutable: true,
+    //     },
+
+    //     begin: {
+    //         type: Date,
+    //         default: () => new Date(),
+    //         immutable: true,
+    //     },
+
+    //     hourTime: {
+    //         type: Date,
+    //         default: () => new Date(),
+    //         immutable: true,
+    //     },
+    //     complete: {
+    //         type: Boolean,
+    //     },
+    // },
 })
 
-export default mongoose.model("course", CourseSchema);
+export default mongoose.model("Course", CourseSchema);

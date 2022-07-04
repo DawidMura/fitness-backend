@@ -15,8 +15,7 @@ export const postRegister = async (req, res) => {
         const newMember = new MemberSchema(req.body);
         await newMember.save();
         // status 201 the request has succeeded 
-        // return res.status(201).json({ success: true, insertedData: newMember })
-        return res.redirect("http://localhost:3000/login");
+        return res.status(201).json({ success: true, insertedData: newMember })
     } catch (error) {
         res.status(200).json({ error: error.message })
     }
@@ -80,8 +79,7 @@ export const postLogin = async (req, res) => {
     })
 
     // status 200 means success
-    // return res.status(200).json({ msg: 'successfully logged in', accessToken, email: loggingUser.email })
-    return res.redirect("http://localhost:3000/userPanel");
+    return res.status(200).json({ msg: 'successfully logged in', accessToken, email: loggingUser.email })
 }
 
 /******************************************************

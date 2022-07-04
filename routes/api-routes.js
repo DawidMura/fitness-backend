@@ -6,6 +6,7 @@ import {
 import { validateRequest } from "../middleware/validateRequest.js";
 import { courseValidator } from "../model/courseValidator.js"
 
+
 const router = express.Router()
 
 // *** "Playground" ****
@@ -22,8 +23,6 @@ router.get("/userPanel", isAuth, (req, res) => {
     });
 })
 
-
-
 router.route("/courses")
     .get(getCourses)
     .post(courseValidator, validateRequest, isAuth, addCourse);
@@ -33,7 +32,7 @@ router.route("/courses/:id")
     .put(courseValidator, validateRequest, isAuth, updateCourse)
     .delete(isAuth, deleteCourse);
 
-
+})
 
 export default router;
 

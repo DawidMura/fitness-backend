@@ -32,7 +32,6 @@ router.route("/courses/:id")
     .put(courseValidator, validateRequest, isAuth, updateCourse)
     .delete(isAuth, deleteCourse);
 
-})
 
 export default router;
 

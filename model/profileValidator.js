@@ -8,7 +8,7 @@ import IBAN from "iban";
  * Validiert. Das bedeutet, dass Sie jede dieser Methoden
  * verwenden können,  z.B. isEmail, etc.
  *******************************************************/
-export const registerValidator = [
+export const profileValidator = [
     body("firstName")
         .trim()
         .escape()
@@ -39,20 +39,17 @@ export const registerValidator = [
             return true;
         })
         .withMessage("pwd and rpwd are not equal"),
-    body("age")
-        .isNumeric({ min: 18, max: 70 })
-        .withMessage("Age has to be between 18 and 70"),
-    body("accountNumber")
-        .custom((value, { req }) => {
-            const checkIban = IBAN.isValid(req.body.accountNumber);
-            // if(value !== req.body.accountNumber){
-            //     throw new error("value and iban are not equal");
-            // }
+    // body("accountNumber")
+    //     .custom((value, { req }) => {
+    //         const checkIban = IBAN.isValid(req.body.accountNumber);
+    //         // if(value !== req.body.accountNumber){
+    //         //     throw new error("value and iban are not equal");
+    //         // }
 
-            return checkIban;
-        })
-        .trim()
-        .withMessage("IBAN has contain a valid IBAN format"),
+    //         return checkIban;
+    //     })
+    //     .trim()
+    //     .withMessage("IBAN has contain a valid IBAN format"),
     body("mobile")
         .isNumeric()
         .custom((value, { req }) => {

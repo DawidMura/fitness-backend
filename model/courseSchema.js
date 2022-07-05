@@ -25,13 +25,13 @@ const CourseSchema = new mongoose.Schema({
     },
     begin: {
         type: Date,
-        default: () => new Date('2022-06-22:11:00'),
+        default: () => new Date('2022-06-22:11:00').getFullYear(),
         immutable: true,
     },
 
     end: {
         type: Date,
-        default: () => new Date('2022-06-22:12:00'),
+        default: () => new Date('2022-06-22:12:00').toLocaleDateString(),
         immutable: true,
     },
 })

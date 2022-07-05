@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+// require('mongoose-iban').loadType(mongoose);
 
 
 /* *************************************************
@@ -8,6 +9,9 @@ import bcrypt from "bcrypt";
 *  wir während der Entwicklung brauchen.
 *  Damit kann man Daten manipulieren z.B: ( CRUD, usw)
 ******************************************************/
+
+// const checkIban = IBAN.isValid('BE68539007547034');
+// console.log(checkIban);
 
 const MemberSchema = new mongoose.Schema({
     firstName: {
@@ -37,6 +41,25 @@ const MemberSchema = new mongoose.Schema({
         type: [String],
         enum: ["user", "trainer", "admin"],
         default: ["user"]
+    },
+
+    createdAt: {
+        type: Date,
+        default: () => new Date(),
+        immutable: true,
+    },
+
+    updatedAt: {
+        type: Date,
+        default: () => new Date(),
+    },
+
+    mobile: {
+        type: Number,
+    },
+
+    accountNumber: {
+        type: String
     },
 
     // courses: [

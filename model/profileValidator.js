@@ -39,17 +39,17 @@ export const profileValidator = [
             return true;
         })
         .withMessage("pwd and rpwd are not equal"),
-    // body("accountNumber")
-    //     .custom((value, { req }) => {
-    //         const checkIban = IBAN.isValid(req.body.accountNumber);
-    //         // if(value !== req.body.accountNumber){
-    //         //     throw new error("value and iban are not equal");
-    //         // }
+    body("accountNumber")
+        .custom((value, { req }) => {
+            const checkIban = IBAN.isValid(req.body.accountNumber);
+            // if(value !== req.body.accountNumber){
+            //     throw new error("value and iban are not equal");
+            // }
 
-    //         return checkIban;
-    //     })
-    //     .trim()
-    //     .withMessage("IBAN has contain a valid IBAN format"),
+            return checkIban;
+        })
+        .trim()
+        .withMessage("IBAN has contain a valid IBAN format"),
     body("mobile")
         .isNumeric()
         .custom((value, { req }) => {

@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 // require('mongoose-iban').loadType(mongoose);
-
-
+import Course from "./courseSchema.js";
+import Device from "./devicesSchema.js";
 /* *************************************************
 *  Erstellung einer  Collection Namens "MenberSchema
 *  also, wir legen unsere Modelle bzw. unsere Datenstruktur fest, die
@@ -43,6 +43,19 @@ const MemberSchema = new mongoose.Schema({
         default: ["user"]
     },
 
+    course_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        // required: true,
+        ref: Course
+    },
+
+    device_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        // required: true,
+        ref: Device
+    },
+
+
     createdAt: {
         type: Date,
         default: () => new Date(),
@@ -53,22 +66,6 @@ const MemberSchema = new mongoose.Schema({
         type: Date,
         default: () => new Date(),
     },
-
-    mobile: {
-        type: Number,
-    },
-
-    accountNumber: {
-        type: String
-    },
-
-    // courses: [
-    //     {
-    //         type: Schema.Types.ObjectId,
-    //         ref: 'Course'
-    //     }
-    // ],
-
     address:
     {
         street: {
@@ -90,7 +87,8 @@ const MemberSchema = new mongoose.Schema({
             type: Number,
             required: true,
         },
-    }
+    },
+    strict: false
 });
 /**********************************************************
  * vor der Speicherung in database wird das Modell

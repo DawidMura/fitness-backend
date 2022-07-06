@@ -8,7 +8,7 @@ import {
     getDevices, getOneDevice, addDevice, updateDevice, deleteDevice
 } from "../controller/devices-controller.js";
 import {
-    getOneProfile, updateProfile, showProfileInfo
+    getOneProfile, updateProfile, showProfileInfo, showAllProfilesPopulated, joinCourse
 } from "../controller/profile-controller.js";
 
 import {
@@ -43,20 +43,20 @@ router.get("/userPanel", isAuth, (req, res) => {
 
 
 router.route("/courses")
-    .get(getCourses)
+    .get(isAuth, getCourses)
     .post(courseValidator, validateRequest, isAuth, addCourse);
 
 router.route("/courses/:id")
-    .get(getOneCourse)
+    .get(isAuth, getOneCourse)
     .put(courseValidator, validateRequest, isAuth, updateCourse)
     .delete(isAuth, deleteCourse);
 
 router.route("/devices")
-    .get(getDevices)
+    .get(isAuth, getDevices)
     .post(devicesValidator, validateRequest, isAuth, addDevice);
 
 router.route("/devices/:id")
-    .get(getOneDevice)
+    .get(isAuth, getOneDevice)
     .put(devicesValidator, validateRequest, isAuth, updateDevice)
     .delete(isAuth, deleteDevice);
 
@@ -64,21 +64,23 @@ router.route("/devices/:id")
 router.route("/edit/:id")
     .get(isAuth, getOneProfile)
     .put(
-        // profileValidator,
-        // validateRequest,
+        profileValidator,
+        validateRequest,
         isAuth,
         updateProfile
     )
 
 router.route("/info/:id")
     .get(isAuth, showProfileInfo)
-    .put(
-        // profileValidator,
-        // validateRequest,
-        isAuth,
-        updateProfile
-    )
 
+router.route("/profile/:id")
+    .get(isAuth, showAllProfilesPopulated)
+
+
+
+//POST ROUTES
+router.route("/joinCourse/:id")
+    .post(isAuth, joinCourse)
 
 export default router;
 

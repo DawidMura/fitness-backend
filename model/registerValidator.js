@@ -2,7 +2,7 @@ import { body, check } from "express-validator";
 import MemberSchema from "./memberSchema.js";
 import mongoose from "mongoose";
 import bcrypt from 'bcrypt';
-import IBAN from "iban";
+
 /*****************************************************
  * Validierungskette  wird in express-validator 
  * Validiert. Das bedeutet, dass Sie jede dieser Methoden
@@ -42,28 +42,6 @@ export const registerValidator = [
     body("age")
         .isNumeric({ min: 18, max: 70 })
         .withMessage("Age has to be between 18 and 70"),
-    body("accountNumber")
-        .custom((value, { req }) => {
-            const checkIban = IBAN.isValid(req.body.accountNumber);
-            // if(value !== req.body.accountNumber){
-            //     throw new error("value and iban are not equal");
-            // }
-
-            return checkIban;
-        })
-        .trim()
-        .withMessage("IBAN has contain a valid IBAN format"),
-    body("mobile")
-        .isNumeric()
-        .custom((value, { req }) => {
-            let mobile = req.body.mobile;
-
-            let strMobile = mobile.toString();
-            console.log(strMobile.length);
-            if (strMobile.length === 11) return strMobile;
-            throw new error("mobile must contain 11 digits");
-        })
-        .withMessage("mobile phone must have 11 digits "),
     check("address.street")
         .isString()
         .escape()

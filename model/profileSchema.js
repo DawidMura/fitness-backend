@@ -1,15 +1,26 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import Member from "./memberSchema.js";
-
+import Course from "./courseSchema.js";
+import Devices from "./devicesSchema.js";
 
 // const Member = mongoose.model('Member', MemberSchema);
 
-const UserSchema = new mongoose.Schema({
-    user_id: {
+const ProfileSchema = new mongoose.Schema({
+    user: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: Member
     },
+
+    mobile: {
+        type: Number,
+    },
+
+    accountNumber: {
+        type: String
+    },
+
+
 
     updatedAt: {
         type: Date,
@@ -27,7 +38,7 @@ const UserSchema = new mongoose.Schema({
 *****************************************************************/
 
 
-UserSchema.pre("save", async function (next) {
+ProfileSchema.pre("save", async function (next) {
     this.password = await bcrypt.hash(this.password, 12);
     next();
 });
@@ -35,4 +46,4 @@ UserSchema.pre("save", async function (next) {
 /*
 Modell wird hier  inizialisiert, dadurch kann man mit ihr
 arbeiten */
-export default mongoose.model("userPanel", UserSchema);
+export default mongoose.model("Profile", ProfileSchema);

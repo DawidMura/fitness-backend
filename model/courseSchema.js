@@ -1,9 +1,15 @@
 import mongoose from "mongoose";
+import MemberSchema from "./memberSchema.js";
 
 const CourseSchema = new mongoose.Schema({
-    name: {
+    member: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Member"
+    },
+    course_name: {
         type: String,
         required: true,
+        immutable: true,
     },
     trainer: {
         type: String,
@@ -25,15 +31,16 @@ const CourseSchema = new mongoose.Schema({
     },
     begin: {
         type: Date,
-        default: () => new Date('2022-06-22:11:00').getFullYear(),
+        default: () => new Date('2022-06-22:11:00'),
         immutable: true,
     },
 
     end: {
         type: Date,
-        default: () => new Date('2022-06-22:12:00').toLocaleDateString(),
+        default: () => new Date('2022-06-22:12:00'),
         immutable: true,
     },
+
 })
 
 export default mongoose.model("Course", CourseSchema);

@@ -1,7 +1,9 @@
 import mongoose from "mongoose";
+import MemberSchema from "./memberSchema.js";
+
 
 const DevicesSchema = new mongoose.Schema({
-    name: {
+    device_name: {
         type: String,
         required: true,
     },
@@ -25,11 +27,17 @@ const DevicesSchema = new mongoose.Schema({
         required: true,
     },
 
+    member: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Member"
+    },
     end: {
         type: Date,
         default: () => new Date('2022-06-22:12:00'),
         required: true,
     },
+
+    strict: false
 })
 
-export default mongoose.model("Devices", DevicesSchema);
+export default mongoose.model("Device", DevicesSchema);

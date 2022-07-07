@@ -1,13 +1,17 @@
 # fitness-backend
-# Schritten (& schritten)
+## Schritten (& schritten)
 1. User registriert sich 
-   * firstName, lastName, etc. 
+   * firstName, lastName, etc.
+   * User-Eingaben werden zuerst validiert
+   * Daten werden in database gespeicher 
 2. User loggt sich ein
     * email, password
-3. User Daten werden validiert und auf  dem Server  gespeichgert, dabei wird ein Token erzeugt
-   * Token: ye6nn...
-4. server schickt den User den Token
-  
-5. User speichert den Token als Cookie im Browser
-6. User kann Daten bzw. Post zurückbekommen, beim gültigen Token (verification)
-   
+    * Server erzeugt ein Token
+    * server gibt den User ein Token zurück, damit er seine Daten bearbeiten kann, oder auch er Kurse bzw. 
+      Geräten auswählen kann. 
+## 
+  1. Implementierung von Collections:Menber, Courses, Devices, Userinfo (Mongoose)
+  2. Validierung aller Collections ( Express-Validator)
+  3. Implementierung der Controllers für aller Models
+  4. anlegen der Routen
+  5. Speichern der Daten in Database 

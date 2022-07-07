@@ -1,15 +1,14 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import Member from "./memberSchema.js";
-import Course from "./courseSchema.js";
-import Devices from "./devicesSchema.js";
+
 
 // const Member = mongoose.model('Member', MemberSchema);
 
 const ProfileSchema = new mongoose.Schema({
     user: {
         type: mongoose.SchemaTypes.ObjectId,
-        ref: Member
+        ref: "Member"
     },
 
     mobile: {
@@ -19,8 +18,6 @@ const ProfileSchema = new mongoose.Schema({
     accountNumber: {
         type: String
     },
-
-
 
     updatedAt: {
         type: Date,

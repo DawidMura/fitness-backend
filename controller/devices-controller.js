@@ -6,27 +6,27 @@ const getDevices = async (req, res) => {
 }
 
 const getOneDevice = async (req, res) => {
-    const _id = req.params.id;
-    const findOneDevice = await DevicesSchema.findById(_id);
-    res.json(findOneDevice);
+    const deviceId = req.params.deviceId;
+    const findOneDevice = await DevicesSchema.findById(deviceId);
+    res.send(findOneDevice);
 }
 
 
 const addDevice = async (req, res) => {
     const newDevice = new DevicesSchema(req.body);
     await newDevice.save();
-    res.json("new device is added");
+    res.send("new device is added");
 }
 
 const updateDevice = async (req, res) => {
-    const _id = req.params.id;
-    await DevicesSchema.updateOne({ _id }, req.body);
-    res.json("device is updated!");
+    const deviceId = req.params.deviceId;
+    await DevicesSchema.updateOne({ _id: deviceId }, req.body);
+    res.send("device is updated!");
 }
 
 const deleteDevice = async (req, res) => {
-    const _id = req.params.id;
-    await DevicesSchema.findByIdAndRemove(_id);
+    const deviceId = req.params.deviceId;
+    await DevicesSchema.findByIdAndRemove(deviceId);
     res.send("device is deleted!");
 }
 

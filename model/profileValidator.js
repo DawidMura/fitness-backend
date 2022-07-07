@@ -13,23 +13,26 @@ export const profileValidator = [
         .trim()
         .escape()
         .isLength({ min: 3 })
-        .withMessage("first name has to be at least 2 chars"),
+        .withMessage("first name has to be at least 2 chars")
+        .optional({ checkFalsy: true }),
     body("lastName")
         .trim()
         .escape()
         .isLength({ min: 3 })
-        .withMessage("last name has to be at least 3 chars"),
-
+        .withMessage("last name has to be at least 3 chars")
+        .optional({ checkFalsy: true }),
     body("email")
         .trim()
         .isEmail()
         .withMessage("Has to be valid email")
-        .normalizeEmail(),
+        .normalizeEmail()
+        .optional({ checkFalsy: true }),
     body("password")
         .isLength({ min: 5 })
         .withMessage("Password has to be at least 5 chars")
         .matches(/\d/)
-        .withMessage('must contain a number'),
+        .withMessage('must contain a number')
+        .optional({ checkFalsy: true }),
     body('repassword')
         .custom((value, { req }) => {
             if (value !== req.body.password) {
@@ -42,10 +45,6 @@ export const profileValidator = [
     body("accountNumber")
         .custom((value, { req }) => {
             const checkIban = IBAN.isValid(req.body.accountNumber);
-            // if(value !== req.body.accountNumber){
-            //     throw new error("value and iban are not equal");
-            // }
-
             return checkIban;
         })
         .trim()
@@ -54,9 +53,8 @@ export const profileValidator = [
         .isNumeric()
         .custom((value, { req }) => {
             let mobile = req.body.mobile;
-
             let strMobile = mobile.toString();
-            console.log(strMobile.length);
+
             if (strMobile.length === 11) return strMobile;
             throw new error("mobile must contain 11 digits");
         })
@@ -65,16 +63,19 @@ export const profileValidator = [
         .isString()
         .escape()
         .trim()
-        .withMessage("The street may to be valid street"),
+        .withMessage("The street may to be valid street")
+        .optional({ checkFalsy: true }),
     check("address.city")
         .isString()
         .escape()
         .trim()
-        .withMessage("The city has to be a string"),
+        .withMessage("The city has to be a string")
+        .optional({ checkFalsy: true }),
     check("address.zip")
         .isNumeric()
         .isLength({ min: 5 })
         .withMessage("Invalid zip")
+        .optional({ checkFalsy: true }),
 ];
 
 

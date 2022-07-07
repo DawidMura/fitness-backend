@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import MemberSchema from "./memberSchema.js";
+import Member from "./memberSchema.js";
 
 const CourseSchema = new mongoose.Schema({
     member: {
@@ -41,6 +41,18 @@ const CourseSchema = new mongoose.Schema({
         immutable: true,
     },
 
+    // numOfMembers: {
+    //     type: Number,
+    //     min: 0,
+    //     max: 10,
+    // }
+
+    // slots (limit) weiter machen
+    // slots: [{
+    //     type: mongoose.Schema.Types.Mixed,
+    //     ref: 'reservation',
+    //     maxItems: 10
+    // }]
 })
 
 export default mongoose.model("Course", CourseSchema);

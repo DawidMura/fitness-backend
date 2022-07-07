@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import MemberSchema from "./memberSchema.js";
+import Member from "./memberSchema.js";
 
 
 const DevicesSchema = new mongoose.Schema({

@@ -1,61 +1,43 @@
-import CourseSchema from "../model/courseSchema.js";
 import MemberSchema from "../model/memberSchema.js";
 
 const getOneProfile = async (req, res) => {
-    const _id = req.params.id;
-    const findOneMember = await MemberSchema.findById(_id);
-    res.json(findOneMember);
-}
-
-
-const joinCourse = async (req, res) => {
-    const _id = req.params.id;
-    try {
-        await CourseSchema.updateOne({ _id }, req.body.ready);
-        if (req.body.ready) {
-            res.json("You're joined to course");
-        }
-        else {
-            res.json("You're not joined to course");
-        }
-
-    }
-    catch (error) {
-        console.error(error)
-    }
-
+    const memberId = req.params.memberId;
+    const findOneMember = await MemberSchema.findById(memberId);
+    res.send(findOneMember);
 }
 
 const updateProfile = async (req, res) => {
-    const _id = req.params.id;
-    await MemberSchema.updateOne({ _id }, req.body);
-    res.json("Profile is updated!");
+    const memberId = req.params.memberId;
+    await MemberSchema.updateOne({ _id: memberId }, req.body);
+    res.send("Profile is updated!");
 }
 
 const showProfileInfo = async (req, res) => {
     try {
-        const _id = req.params.id;
-        console.debug(_id);
-        const profileInfo = await MemberSchema.find({ _id })
-            .populate("course_id device_id", "firstName lastName course_name device_name -_id")
-            .select("firstName lastName course_name device_name")
-        res.json({ profileInfo });
+        const memberId = req.params.memberId;
+        const profileInfo = await MemberSchema.find({ _id: memberId })
+            .populate("course_ids", "firstName lastName course_name device_name -_id")
+            .select("firstName lastName course_name device_name -_id")
+        res.send(profileInfo);
     } catch (error) {
         console.error(error);
     }
 }
 
-async function showAllProfilesPopulated() {
+const showEditProfileInfo = async (req, res) => {
     try {
-        const profilesPop = await MemberSchema.find({})
-            .populate("devices")
-
+        const memberId = req.params.memberId;
+        const editInfo = await MemberSchema.find({ _id: memberId })
+            .populate("course_ids", "firstName lastName course_name device_name -_id")
+            .find({});
+        res.send(editInfo);
     }
     catch (error) {
         console.error(error);
     }
 }
 
+
 export {
-    getOneProfile, updateProfile, showProfileInfo, showAllProfilesPopulated, joinCourse
+    getOneProfile, updateProfile, showProfileInfo, showEditProfileInfo
 };

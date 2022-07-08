@@ -4,9 +4,10 @@ import mongoose from "mongoose";
 import bcrypt from 'bcrypt';
 
 /*****************************************************
- * Validierungskette  wird in express-validator 
- * Validiert. Das bedeutet, dass Sie jede dieser Methoden
- * verwenden können,  z.B. isEmail, etc.
+ * Registervalidator validiert alle Eingaben, die von Frontend als 
+ * Input in Menberschema gesendet werden. Falls Input Ordungsgemäßt
+ * eingegenben wurde, werden die Inputs in database gespeichert, ansonst
+ * werden die Inputs in database nicht angenommen. 
  *******************************************************/
 export const registerValidator = [
     body("firstName")
@@ -58,11 +59,3 @@ export const registerValidator = [
         .withMessage("Invalid zip")
 ];
 
-
-
-/* *************************************************
-*  Erstellung einer  Collection Namens "MenberSchema
-*  also, wir legen unsere Modelle bzw. unsere Datenstruktur fest, die
-*  wir während der Entwicklung brauchen.
-*  Damit kann man Daten manipulieren z.B: ( CRUD, usw)
-******************************************************/

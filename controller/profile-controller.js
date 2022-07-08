@@ -1,3 +1,15 @@
+/***************************************************************
+ * Diese Controller erstellt die Methode zur Datenangaben eines Users
+ * Firstname, lastname, course und devices.
+ * Außerdem kann User seine Daten bearbeiten und anderen daten dazu einfügen
+ * wie Telefonnummer und Kontonummer
+ * 
+ * @getOneProfile gibt den user: firstname, lastname, course und devices. zurück * 
+ * @updateprofile  damit wird die Userdaten bearbeitet und aktualisiert
+ * @showProfileInfo gibt den user: firstname, lastname, course und devices zurück, dies
+ *  wird durch Populate der Collections Menber, Devices and Course ermöglicht
+ * @showEditProfileInfo ermöglicht die Populate der Collections, Member, Devices and Courses
+ ****************************************************************/
 import MemberSchema from "../model/memberSchema.js";
 
 const getOneProfile = async (req, res) => {

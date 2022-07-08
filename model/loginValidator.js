@@ -1,9 +1,9 @@
 import { body } from "express-validator";
 
 /*****************************************************
- * Validierungskette  wird in express-validator 
- * Validiert. Das bedeutet, dass Sie jede dieser Methoden
- * verwenden können,  z.B. trim(), etc.
+ * Loginvalidator validiert die Email und Password, die
+ * vom User beim Einloggen eingegeben hat, wenn sie angenommen werden, 
+ * kann  sich User einloggen   
  *******************************************************/
 export const loginValidator= [
     body("email")

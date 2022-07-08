@@ -1,6 +1,13 @@
 import mongoose from "mongoose";
 import Member from "./memberSchema.js";
 
+
+/* *************************************************
+*  Erstellung der Collection Namens "CourseSchema
+*  hierbei wird unsere Modele bzw. unsere Datenstruktur 
+*  für alle Kurse festgelegt.
+******************************************************/
+
 const CourseSchema = new mongoose.Schema({
     member: {
         type: mongoose.SchemaTypes.ObjectId,

@@ -2,6 +2,12 @@ import mongoose from "mongoose";
 import Member from "./memberSchema.js";
 
 
+/* *************************************************
+*  Erstellung der Collection Namens "DevicesSchema"
+*  hierbei wird unsere Modele bzw. unsere Datenstruktur 
+*  für alle Devices festgelegt.
+******************************************************/
+
 const DevicesSchema = new mongoose.Schema({
     device_name: {
         type: String,

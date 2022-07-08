@@ -1,9 +1,10 @@
 import { body, check } from "express-validator";
 
 /*****************************************************
- * Validierungskette  wird in express-validator 
- * Validiert. Das bedeutet, dass Sie jede dieser Methoden
- * verwenden können,  z.B. isEmail, etc.
+ * Coursevalidator validiert alle Kurse, die vom Admin erstellt
+ * worden sind. Falls sie Ordungsgemäßt
+ * eingegenben wurden, werden sie in database gespeichert, ansonst
+ * werden sie in database nicht angenommen. 
  *******************************************************/
 export const courseValidator = [
     body("name")

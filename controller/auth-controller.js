@@ -1,3 +1,13 @@
+/***************************************************************
+ * Diese Controller erstellt die Methode für die Authentifikation
+ * beim Einlogen, Auslogen und Registrierung
+ * 
+ * @postRegister registriert neuer User
+ * @postLogin ermöglicht das Einlogen bei korrekten pwd und email
+ * @postlogout ermöglicht die Abmeldung beim Browser und  löscht  
+ *  die speicherte Cookie in Frontend aus
+ ****************************************************************/
+
 import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -6,10 +16,7 @@ import MemberSchema from "../model/memberSchema.js";
 const EXPIRATION_ACCESSTOKEN = '8h';
 const msgAlert = "User/Password combination not found";
 
-/******************************************************
- * Das ist die Function @postRegister, die für die
- * Registrierung neue User bzw. Mitglied zuständig ist.
- ******************************************************/
+/* @postRegister */ 
 export const postRegister = async (req, res) => {
     try {
         const newMember = new MemberSchema(req.body);
@@ -21,12 +28,7 @@ export const postRegister = async (req, res) => {
     }
 }
 
-/******************************************************
- * Die @postLogin Function, wird aufgerufen, wenn der User/Mitglied
- * schon registriert wurde, ansonst bekommt er eine Rückmeldung
- * 'Provide Password and Email', 
- * 
- ******************************************************/
+/* @postLogin */ 
 export const postLogin = async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) return res.status(401).json({ success: false, error: 'Provide Password and Email' });
@@ -52,13 +54,12 @@ export const postLogin = async (req, res) => {
         return res.status(500).json({ error })
     }
 
-    // convert time to Millisekunden
-    //const expiresInMs = 24 * 60 * 60 = 86400 seconds
+
     //const expiresInMs = 24 * 60 * 60 * 1000 // 86400 * (10)³
     const expiresInMs = 24 * 60 * 60 * 1000 // 1 h
     const expiresInDate = new Date(Date.now() + expiresInMs)
 
-    /* Hier findet unsere token-generator @accessToken statt, */
+    /* @accessToken, hier wird unsere Token-generator erstellt, */
     const accessToken = jwt.sign(
         {
             email: loggingUser.email,
@@ -78,16 +79,11 @@ export const postLogin = async (req, res) => {
         maxAge: expiresInMs
     })
 
-    // status 200 means success
+    
     return res.status(200).json({ msg: 'successfully logged in', accessToken, email: loggingUser.email })
 }
 
-
-/******************************************************
- * function @logout, ermöglicht die Abmeldung von Browser und  löscht  
- * die speicherte Cookie von Frontend aus.
- ******************************************************/
-
+/* @postLogout */
 export const postLogout = async (req, res) => {
     const accessToken = req.cookies?.accessToken;
     if (!accessToken) return res.sendStatus(204);

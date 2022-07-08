@@ -4,11 +4,11 @@ import bcrypt from "bcrypt";
 import Course from "./courseSchema.js";
 import Device from "./devicesSchema.js";
 import Profile from "./profileSchema.js";
+
 /* *************************************************
-*  Erstellung einer  Collection Namens "MenberSchema
-*  also, wir legen unsere Modelle bzw. unsere Datenstruktur fest, die
-*  wir während der Entwicklung brauchen.
-*  Damit kann man Daten manipulieren z.B: ( CRUD, usw)
+*  Erstellung der Collection Namens "MenberSchema
+*  hierbei wird unsere Modele bzw. unsere Datenstruktur 
+*  für die Registrierung aller Members festgelegt.
 ******************************************************/
 
 // const checkIban = IBAN.isValid('BE68539007547034');
@@ -101,10 +101,9 @@ const MemberSchema = new mongoose.Schema({
     strict: false
 });
 /**********************************************************
- * vor der Speicherung in database wird das Modell
- * geprüft /gefangen,es wird  nur Funktion(wegen class) genutzt.
- * Dieses Middleware wird auf Schemaebene definiert,  und kann die Abfrage während des
- * Ausführung ändern,  allso wird das password beim Instanzieren gehasched, bevor es 
+ * Vor der Speicherung in database prüft die Middleware auf Schemaebene das Modell
+ * und kann die Abfrage während des Ausführung ändern.
+ * Password wird  beim Instanzieren gehasched, bevor es 
  * das Model erstellt wird 
 *****************************************************************/
 
@@ -114,7 +113,5 @@ MemberSchema.pre("save", async function (next) {
     next();
 });
 
-/*
-Modell wird hier  inizialisiert, dadurch kann man mit ihr
-arbeiten */
+/* Modell wird hier  inizialisiert */
 export default mongoose.model("Member", MemberSchema);

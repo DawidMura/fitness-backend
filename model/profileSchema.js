@@ -3,6 +3,12 @@ import bcrypt from "bcrypt";
 import Member from "./memberSchema.js";
 
 
+/* *************************************************
+*  Erstellung der Collection Namens "ProfileSchema
+*  hierbei wird unsere Modele bzw. unsere Datenstruktur 
+*  für alle Member festgelegt.
+******************************************************/
+
 // const Member = mongoose.model('Member', MemberSchema);
 
 const ProfileSchema = new mongoose.Schema({
@@ -26,13 +32,6 @@ const ProfileSchema = new mongoose.Schema({
 
     strict: false
 });
-/**********************************************************
- * vor der Speicherung in database wird das Modell
- * geprüft /gefangen,es wird  nur Funktion(wegen class) genutzt.
- * Dieses Middleware wird auf Schemaebene definiert,  und kann die Abfrage während des
- * Ausführung ändern,  allso wird das password beim Instanzieren gehasched, bevor es 
- * das Model erstellt wird 
-*****************************************************************/
 
 
 ProfileSchema.pre("save", async function (next) {
@@ -40,7 +39,5 @@ ProfileSchema.pre("save", async function (next) {
     next();
 });
 
-/*
-Modell wird hier  inizialisiert, dadurch kann man mit ihr
-arbeiten */
+/* Modell wird hier  inizialisiert */
 export default mongoose.model("Profile", ProfileSchema);

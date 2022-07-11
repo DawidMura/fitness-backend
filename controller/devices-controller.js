@@ -1,3 +1,13 @@
+/***************************************************************
+ * Diese Controller erstellt die Methode zur Erstellung eines Geräts,
+ * Löschen, usw. * 
+ * @getDevices gibt bei einer Anfrage alle Gerätenamen zurück
+ * @getOneDevices gibt bei einer Anfrage einen Gerätenamen  zurück
+ * @joinDevices .......... 
+ * @addDevices hier wird ein neuer Gerätname hinzugefügt
+ * @updateDevices hier wird ein vorhandener Gerätname aktualisiert
+ * @deleteCourse damit  wird ein vorhandener Gerätename gelöscht
+ ****************************************************************/
 import DevicesSchema from "../model/devicesSchema.js";
 
 const getDevices = async (req, res) => {

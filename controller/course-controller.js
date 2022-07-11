@@ -1,3 +1,16 @@
+/***************************************************************
+ * Diese Controller erstellt die Methode zur Erstellung eines Kurses,
+ * Löschen, usw. * 
+ * @getCourses gibt bei einer Anfrage aller Kursen zurück
+ * @getOneCourse gibt bei einer Anfrage einen Kurs zurück
+ * @joinCourse gibt die Bestätigung zur Teilnahme eines Kurses,  * 
+ * @showCourseInfoCourse gibt bei einer Anfrage die von dem User
+ *  ausgewählte Courses
+ * @addCourse hier wird einen neuen Kurs hinzugefügt
+ * @updateCourse hier wird einen vorhandenen Kurs aktualisiert
+ * @deleteCourse damit  wird einen vorhanden Kurs gelöscht
+ ****************************************************************/
+
 import CourseSchema from "../model/courseSchema.js";
 import MemberSchema from "../model/memberSchema.js";
 

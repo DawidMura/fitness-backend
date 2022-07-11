@@ -3,10 +3,13 @@ import MemberSchema from "./memberSchema.js";
 import mongoose from "mongoose";
 import bcrypt from 'bcrypt';
 import IBAN from "iban";
+
 /*****************************************************
- * Validierungskette  wird in express-validator 
- * Validiert. Das bedeutet, dass Sie jede dieser Methoden
- * verwenden können,  z.B. isEmail, etc.
+ * Profilevalidator validiert:
+ * Kontonummer, Telefonnummer und er kann auch wieder die Eingaben, 
+ * die schon im Members gespeichert wurde,  und vom User korrigiert
+ * werden können, wieder validieren und zum Schluss in database (members)
+ * aktualisieren 
  *******************************************************/
 export const profileValidator = [
     body("firstName")

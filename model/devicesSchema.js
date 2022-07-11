@@ -9,6 +9,10 @@ import Member from "./memberSchema.js";
 ******************************************************/
 
 const DevicesSchema = new mongoose.Schema({
+    member: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Member"
+    },
     device_name: {
         type: String,
         required: true,
@@ -33,10 +37,6 @@ const DevicesSchema = new mongoose.Schema({
         required: true,
     },
 
-    member: {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: "Member"
-    },
     end: {
         type: Date,
         default: () => new Date('2022-06-22:12:00'),

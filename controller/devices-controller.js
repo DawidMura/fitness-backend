@@ -9,6 +9,7 @@
  * @deleteCourse damit  wird ein vorhandener Gerätename gelöscht
  ****************************************************************/
 import DevicesSchema from "../model/devicesSchema.js";
+import MemberSchema from "../model/memberSchema.js";
 
 const getDevices = async (req, res) => {
     const devices = await DevicesSchema.find();
@@ -19,6 +20,31 @@ const getOneDevice = async (req, res) => {
     const deviceId = req.params.deviceId;
     const findOneDevice = await DevicesSchema.findById(deviceId);
     res.send(findOneDevice);
+}
+
+
+const bookDevices = async (req, res) => {
+    const memberId = req.params.memberId;
+    try {
+        await MemberSchema.updateOne({ _id: memberId }, { device_ids: req.body.devices });
+        res.send("You have booked a device");
+    }
+    catch (error) {
+        console.error(error);
+    }
+}
+
+const showDevicesInfo = async (req, res) => {
+    try {
+        const memberId = req.params.memberId;
+        const devices = await MemberSchema.find({ _id: memberId })
+            .populate("device_ids")
+            .select("device_name complete -_id")
+        res.json({ devices });
+    }
+    catch (error) {
+        console.error(error);
+    }
 }
 
 
@@ -41,5 +67,5 @@ const deleteDevice = async (req, res) => {
 }
 
 export {
-    getDevices, getOneDevice, addDevice, updateDevice, deleteDevice
+    getDevices, getOneDevice, addDevice, updateDevice, deleteDevice, bookDevices, showDevicesInfo
 };

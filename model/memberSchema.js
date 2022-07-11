@@ -6,7 +6,7 @@ import Device from "./devicesSchema.js";
 import Profile from "./profileSchema.js";
 
 /* *************************************************
-*  Erstellung der Collection Namens "MenberSchema
+*  Erstellung der Collection Namens "MemberSchema
 *  hierbei wird unsere Modele bzw. unsere Datenstruktur 
 *  für die Registrierung aller Members festgelegt.
 ******************************************************/
@@ -100,12 +100,6 @@ const MemberSchema = new mongoose.Schema({
     },
     strict: false
 });
-/**********************************************************
- * Vor der Speicherung in database prüft die Middleware auf Schemaebene das Modell
- * und kann die Abfrage während des Ausführung ändern.
- * Password wird  beim Instanzieren gehasched, bevor es 
- * das Model erstellt wird 
-*****************************************************************/
 
 
 MemberSchema.pre("save", async function (next) {

@@ -41,8 +41,8 @@ const showCourseInfo = async (req, res) => {
     try {
         const memberId = req.params.memberId;
         const courses = await MemberSchema.find({ _id: memberId })
-            .populate("course_ids", "firstName lastName course_name -_id")
-            .select("course_name trainer -_id")
+            .populate("course_ids")
+            .select("course_name trainer complete -_id")
         res.json({ courses });
     } catch (error) {
         console.error(error);

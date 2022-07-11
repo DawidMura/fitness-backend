@@ -5,7 +5,7 @@ import {
 } from "../controller/course-controller.js";
 
 import {
-    getDevices, getOneDevice, addDevice, updateDevice, deleteDevice
+    getDevices, getOneDevice, addDevice, updateDevice, deleteDevice, showDevicesInfo, bookDevices
 } from "../controller/devices-controller.js";
 import {
     getOneProfile, updateProfile, showProfileInfo, showEditProfileInfo
@@ -50,6 +50,11 @@ router.route("/devices/:deviceId")
     .put(devicesValidator, validateRequest, isAuth, updateDevice)
     .delete(isAuth, deleteDevice);
 
+router.route("/showDevicesInfo/:memberId")
+    .get(isAuth, showDevicesInfo);
+
+router.route("/bookDevices/:memberId")
+    .post(isAuth, bookDevices)
 router.route("/edit/:memberId")
     .get(getOneProfile)
     // .put(

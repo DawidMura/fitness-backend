@@ -81,5 +81,8 @@ router.route("/editInfo/:memberId")
 router.route("/joinCourse/:memberId")
     .post(joinCourse)
 
+
+// router.route("/getRoles/:memberId")
+//     .get(getRoles)
 export default router;
 

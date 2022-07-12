@@ -1,5 +1,9 @@
 import express from "express";
 import jwt from "jsonwebtoken";
+import MemberSchema from "../model/memberSchema.js";
+import "dotenv/config";
+const PORT_CLIENT = process.env.PORT_CLIENT;
+const url = `http://localhost:${PORT_CLIENT}/userPanel`
 
 export default async (req, res, next) => {
   const authHeader = req.headers.authorization || req.headers.Authorization;
@@ -21,3 +25,24 @@ export default async (req, res, next) => {
   }
   next();
 }
+
+
+export const authRole = async (req, res, next) => {
+  const memberId = req.params.memberId;
+
+  const adminArray = await MemberSchema.find({ _id: memberId, roles: "admin" });
+  console.log(adminArray);
+
+  if (adminArray.length > 0) {
+    return res.send("<h2>Admin Page </h2>")
+  }
+  else {
+    return res.redirect(url);
+
+  }
+  next();
+}
+
+
+
+

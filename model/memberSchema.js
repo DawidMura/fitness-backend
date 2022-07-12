@@ -40,7 +40,7 @@ const MemberSchema = new mongoose.Schema({
 
     roles: {
         type: [String],
-        enum: ["user", "trainer", "admin"],
+        enum: ["user", "admin"],
         default: ["user"]
     },
 

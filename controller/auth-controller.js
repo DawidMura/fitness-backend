@@ -12,11 +12,14 @@ import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import MemberSchema from "../model/memberSchema.js";
+import "dotenv/config";
 
+const PORT_CLIENT = process.env.PORT_CLIENT;
+const url = `http://localhost:${PORT_CLIENT}/userPanel`
 const EXPIRATION_ACCESSTOKEN = '8h';
 const msgAlert = "User/Password combination not found";
 
-/* @postRegister */ 
+/* @postRegister */
 export const postRegister = async (req, res) => {
     try {
         const newMember = new MemberSchema(req.body);
@@ -28,9 +31,11 @@ export const postRegister = async (req, res) => {
     }
 }
 
-/* @postLogin */ 
+/* @postLogin */
 export const postLogin = async (req, res) => {
     const { email, password } = req.body;
+    // role implementieren
+
     if (!email || !password) return res.status(401).json({ success: false, error: 'Provide Password and Email' });
 
     let loggingUser;
@@ -79,8 +84,9 @@ export const postLogin = async (req, res) => {
         maxAge: expiresInMs
     })
 
-    
-    return res.status(200).json({ msg: 'successfully logged in', accessToken, email: loggingUser.email })
+
+    // return res.status(200).json({ msg: 'successfully logged in', accessToken, email: loggingUser.email })
+    return res.redirect(url);
 }
 
 /* @postLogout */
@@ -92,3 +98,16 @@ export const postLogout = async (req, res) => {
 
     return res.status(200).json({ msg: 'successfully logged out' })
 }
+
+
+
+
+// try {
+//     const adminId = ObjectId("62ca9e2e4f6f8e1abdd76eb1");
+//     const isAdmin = await MemberSchema.find({ _id: adminId })
+//     res.send(isAdmin);
+// }
+
+// catch (error) {
+//     return res.status(401).json({ error: msgAlert })
+// }

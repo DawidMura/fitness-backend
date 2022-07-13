@@ -1,11 +1,11 @@
 import express from "express";
 import isAuth from "../middleware/is-auth.js";
 import {
-    getCourses, getOneCourse, addCourse, updateCourse, deleteCourse, joinCourse, showCourseInfo
+    getCourses, getOneCourse, addCourse, updateCourse, deleteCourse, joinCourse, showCourseInfo, addMemberToCourse
 } from "../controller/course-controller.js";
 
 import {
-    getDevices, getOneDevice, addDevice, updateDevice, deleteDevice, showDevicesInfo, bookDevices
+    getDevices, getOneDevice, addDevice, updateDevice, deleteDevice, showDevicesInfo, bookDevices, addMemberToDevice
 } from "../controller/devices-controller.js";
 import {
     getOneProfile, updateProfile, showProfileInfo, showEditProfileInfo
@@ -53,8 +53,10 @@ router.route("/devices/:deviceId")
 router.route("/showDevicesInfo/:memberId")
     .get(isAuth, showDevicesInfo);
 
-router.route("/bookDevices/:memberId")
-    .post(isAuth, bookDevices)
+router.route("/bookDevices/")
+    // .post(isAuth, bookDevices, addMemberToDevice)
+    .post(devicesValidator, bookDevices, addMemberToDevice)
+
 router.route("/edit/:memberId")
     .get(getOneProfile)
     // .put(
@@ -78,11 +80,14 @@ router.route("/info/:memberId")
 router.route("/editInfo/:memberId")
     .get(showEditProfileInfo);
 
-router.route("/joinCourse/:memberId")
-    .post(joinCourse)
+router.route("/joinCourse/")
+    .post(courseValidator, joinCourse, addMemberToCourse)
 
+// router.route("/addMemberToCourse")
+//     .put(addMemberToCourse)
 
-// router.route("/getRoles/:memberId")
-//     .get(getRoles)
 export default router;
 
+router.route("/bookDevices/")
+    // .post(isAuth, bookDevices, addMemberToDevice)
+    .post(devicesValidator, bookDevices, addMemberToDevice)

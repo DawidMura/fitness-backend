@@ -12,10 +12,10 @@ import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import MemberSchema from "../model/memberSchema.js";
-import "dotenv/config";
+// import "dotenv/config";
 
-const PORT_CLIENT = process.env.PORT_CLIENT;
-const url = `http://localhost:${PORT_CLIENT}/userPanel`
+// const PORT_CLIENT = process.env.PORT_CLIENT;
+// const url = `http://localhost:${PORT_CLIENT}/userPanel`
 const EXPIRATION_ACCESSTOKEN = '8h';
 const msgAlert = "User/Password combination not found";
 
@@ -85,8 +85,8 @@ export const postLogin = async (req, res) => {
     })
 
 
-    // return res.status(200).json({ msg: 'successfully logged in', accessToken, email: loggingUser.email })
-    return res.redirect(url);
+    return res.status(200).json({ msg: 'successfully logged in', accessToken, email: loggingUser.email })
+
 }
 
 /* @postLogout */

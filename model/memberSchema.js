@@ -39,15 +39,15 @@ const MemberSchema = new mongoose.Schema({
     },
 
     roles: {
-        type: [String],
+        type: String,
         enum: ["user", "admin"],
-        default: ["user"]
+        default: "user"
     },
 
     course_ids: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Course"
+            ref: "Course",
         }
     ],
 

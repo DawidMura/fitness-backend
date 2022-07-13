@@ -17,10 +17,12 @@ const DevicesSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    complete: {
-        type: Boolean,
-        default: false,
+
+    memberQuantity: {
+        type: Number,
+        max: 1
     },
+
     created_at: {
         type: Date,
         default: () => new Date(),

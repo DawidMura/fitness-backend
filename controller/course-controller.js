@@ -25,17 +25,50 @@ const getOneCourse = async (req, res) => {
     res.send(findCourse);
 }
 
-const joinCourse = async (req, res) => {
-    const memberId = req.params.memberId;
+const joinCourse = async (req, res, next) => {
+    const memberId = req.body.memberId;
     try {
-        await MemberSchema.updateOne({ _id: memberId }, { course_ids: req.body.courses });
-        res.send("Your'e joined to  course")
+        // await MemberSchema.updateOne({ _id: memberId }, { course_ids: req.body.courseId });
+        await MemberSchema.updateOne({ _id: memberId }, { $push: { course_ids: req.body.courseId } });
+
+        // res.send("Your'e joined to  course")
+        next();
     }
     catch (error) {
         console.error(error)
     }
 
 }
+
+
+const addMemberToCourse = async (req, res) => {
+    const memberId = req.body.memberId;
+    const courseId = req.body.courseId;
+    try {
+        const selectedCourse = await CourseSchema.findById({ _id: courseId })
+        if (selectedCourse.memberQuantity === 10) {
+            return res.send("Course is full");
+        }
+
+        if (!selectedCourse.memberQuantity) {
+            selectedCourse.memberQuantity = 1;
+        }
+        else {
+            selectedCourse.memberQuantity++;
+        }
+
+        selectedCourse.save();
+
+        res.json({ selectedCourse });
+
+    }
+    catch (error) {
+        console.error(error)
+    }
+
+}
+
+
 
 const showCourseInfo = async (req, res) => {
     try {
@@ -68,7 +101,6 @@ const deleteCourse = async (req, res) => {
     res.send("course is deleted!");
 }
 
-
 export {
-    getCourses, getOneCourse, addCourse, updateCourse, deleteCourse, joinCourse, showCourseInfo
+    getCourses, getOneCourse, addCourse, updateCourse, deleteCourse, joinCourse, showCourseInfo, addMemberToCourse
 };

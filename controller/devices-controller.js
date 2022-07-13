@@ -23,16 +23,60 @@ const getOneDevice = async (req, res) => {
 }
 
 
-const bookDevices = async (req, res) => {
-    const memberId = req.params.memberId;
+// const bookDevices = async (req, res) => {
+//     const memberId = req.params.memberId;
+//     try {
+//         await MemberSchema.updateOne({ _id: memberId }, { device_ids: req.body.devices });
+//         res.send("You have booked a device");
+//     }
+//     catch (error) {
+//         console.error(error);
+//     }
+// }
+
+
+const bookDevices = async (req, res, next) => {
+    const memberId = req.body.memberId;
     try {
-        await MemberSchema.updateOne({ _id: memberId }, { device_ids: req.body.devices });
-        res.send("You have booked a device");
+        await MemberSchema.updateOne({ _id: memberId }, { $push: { device_ids: req.body.deviceId } });
+        next();
     }
     catch (error) {
         console.error(error);
     }
 }
+
+
+
+const addMemberToDevice = async (req, res) => {
+    const memberId = req.body.memberId;
+    const deviceId = req.body.deviceId;
+    try {
+        const selectedDevice = await DevicesSchema.findById({ _id: deviceId })
+        if (selectedDevice.memberQuantity === 1) {
+            return res.send("We have no more devices for you. Please try again later");
+        }
+
+        if (!selectedDevice.memberQuantity) {
+            selectedDevice.memberQuantity = 1;
+        }
+        // else {
+        //     selectedDevice.memberQuantity++;
+        // }
+
+        selectedDevice.save();
+
+        res.json({ selectedDevice });
+
+    }
+    catch (error) {
+        console.error(error)
+    }
+
+}
+
+
+
 
 const showDevicesInfo = async (req, res) => {
     try {
@@ -67,5 +111,5 @@ const deleteDevice = async (req, res) => {
 }
 
 export {
-    getDevices, getOneDevice, addDevice, updateDevice, deleteDevice, bookDevices, showDevicesInfo
+    getDevices, getOneDevice, addDevice, updateDevice, deleteDevice, bookDevices, showDevicesInfo, addMemberToDevice
 };

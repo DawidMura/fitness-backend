@@ -16,5 +16,9 @@ export const courseValidator = [
         .isString()
         .escape()
         .trim()
-        .withMessage("Trainer has to be a string")
+        .withMessage("Trainer has to be a string"),
+    body("memberQuantity")
+        .isNumeric()
+        .withMessage("memberQuantity has to be a number")
+
 ];

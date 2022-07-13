@@ -22,10 +22,13 @@ const CourseSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    complete: {
-        type: Boolean,
-        default: false,
+
+    memberQuantity: {
+        type: Number,
+        min: 1,
+        max: 10
     },
+
     created_at: {
         type: Date,
         default: () => new Date(),
@@ -48,18 +51,6 @@ const CourseSchema = new mongoose.Schema({
         immutable: true,
     },
 
-    // numOfMembers: {
-    //     type: Number,
-    //     min: 0,
-    //     max: 10,
-    // }
-
-    // slots (limit) weiter machen
-    // slots: [{
-    //     type: mongoose.Schema.Types.Mixed,
-    //     ref: 'reservation',
-    //     maxItems: 10
-    // }]
 })
 
 export default mongoose.model("Course", CourseSchema);

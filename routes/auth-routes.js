@@ -34,9 +34,8 @@ router.post("/logout",
 
 
 // ADMIN Route
-
-// router.get("/admin", isAuth, authRole);
 router.get("/admin/:memberId", isAuth, authRole);
+
 
 
 export default router; 

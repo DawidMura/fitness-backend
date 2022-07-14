@@ -8,7 +8,7 @@ import { body, check } from "express-validator";
  *******************************************************/
 
 export const devicesValidator = [
-    body("name")
+    body("device_name")
         .isString()
         .escape()
         .trim()

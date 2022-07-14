@@ -43,6 +43,10 @@ export const registerValidator = [
     body("age")
         .isNumeric({ min: 18, max: 70 })
         .withMessage("Age has to be between 18 and 70"),
+    // body("course_ids")
+    //     .optional({ checkFalsy: true }),
+    // body("device_ids")
+    //     .optional({ checkFalsy: true }),
     check("address.street")
         .isString()
         .escape()

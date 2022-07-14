@@ -68,25 +68,29 @@ export const postLogin = async (req, res) => {
     const accessToken = jwt.sign(
         {
             email: loggingUser.email,
-            userId: loggingUser._id
+            userId: loggingUser._id,
+            role: loggingUser.role,
         }
         , process.env.TOKEN_SECRET,
         { expiresIn: EXPIRATION_ACCESSTOKEN }
     );
+
 
     res.cookie('accessToken', accessToken, {
         httpOnly: true,
         maxAge: expiresInMs
     });
 
+
     res.cookie('isLogged', expiresInDate.toISOString(), {
         httpOnly: false,
-        maxAge: expiresInMs
+        maxAge: expiresInMs,
+        role: loggingUser.role,
+        // TODO sicherer machen: FRONTEND => auslesen über accessToken
     })
 
 
-    return res.status(200).json({ msg: 'successfully logged in', accessToken, email: loggingUser.email })
-
+    return res.status(200).json({ msg: 'successfully logged in', accessToken: accessToken, email: loggingUser.email })
 }
 
 /* @postLogout */

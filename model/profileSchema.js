@@ -5,40 +5,42 @@ import Member from "./memberSchema.js";
 
 /* *************************************************
 *  Erstellung der Collection Namens "ProfileSchema
-*  hierbei wird unsere Modele bzw. unsere Datenstruktur 
+*  hierbei wird unsere Modele bzw. unsere Datenstruktur
 *  für alle Member festgelegt.
 ******************************************************/
 
 // const Member = mongoose.model('Member', MemberSchema);
 
-const ProfileSchema = new mongoose.Schema({
-    user: {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: "Member"
-    },
+// const ProfileSchema = new mongoose.Schema({
+//     user: {
+//         type: mongoose.SchemaTypes.ObjectId,
+//         ref: "Member"
+//     },
 
-    mobile: {
-        type: Number,
-    },
+//     mobile: {
+//         type: Number,
+//     },
 
-    accountNumber: {
-        type: String
-    },
+//     accountNumber: {
+//         type: String
+//     },
 
-    updatedAt: {
-        type: Date,
-        default: () => new Date(),
-    },
+//     updatedAt: {
+//         type: Date,
+//         default: () => new Date(),
+//     },
 
-    strict: false
-});
+//     strict: false
+// });
 
 
-ProfileSchema.pre("save", async function (next) {
-    if (!this.isModified('password')) return next();
-    this.password = await bcrypt.hash(this.password, 12);
-    next();
-});
+// ProfileSchema.pre("save", async function (next) {
+//     // this.password = await bcrypt.hash(this.password, 12);
+//     // next();
+//     if (!this.isModified('password')) return next();
+//     this.password = await bcrypt.hash(this.password, 12);
+//     next();
+// });
 
-/* Modell wird hier  inizialisiert */
-export default mongoose.model("Profile", ProfileSchema);
+// /* Modell wird hier  inizialisiert */
+// export default mongoose.model("Profile", ProfileSchema);

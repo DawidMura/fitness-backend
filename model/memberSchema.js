@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 // require('mongoose-iban').loadType(mongoose);
 import Course from "./courseSchema.js";
 import Device from "./devicesSchema.js";
-import Profile from "./profileSchema.js";
+// import Profile from "./profileSchema.js";
 import arrayUniquePlugin from "mongoose-unique-array";
 /* *************************************************
 *  Erstellung der Collection Namens "MemberSchema
@@ -44,6 +44,16 @@ const MemberSchema = new mongoose.Schema({
         default: "user"
     },
 
+    // ADD mobile & accountNumber
+    mobile: {
+        type: Number,
+    },
+
+    accountNumber: {
+        type: String
+    },
+
+
     course_ids: [
         {
             type: mongoose.Schema.Types.ObjectId,
@@ -61,12 +71,12 @@ const MemberSchema = new mongoose.Schema({
         }
     ],
 
-    user_id: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Profile"
-        }
-    ],
+    // user_id: [
+    //     {
+    //         type: mongoose.Schema.Types.ObjectId,
+    //         ref: "Profile"
+    //     }
+    // ],
 
     createdAt: {
         type: Date,

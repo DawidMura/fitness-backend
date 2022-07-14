@@ -8,7 +8,7 @@ import {
     getDevices, getOneDevice, addDevice, updateDevice, deleteDevice, showDevicesInfo, bookDevices, addMemberToDevice
 } from "../controller/devices-controller.js";
 import {
-    getOneProfile, updateProfile, showProfileInfo, showEditProfileInfo, deleteProfile
+    getOneProfile, updateProfile, showProfileInfo, deleteProfile,
 } from "../controller/profile-controller.js";
 
 import {
@@ -68,11 +68,15 @@ router.route("/edit/:memberId")
     .delete(isAuth, isAdmin, deleteProfile)
 
 
+// router.route("/addProfile/:memberId")
+//     .post(addProfile);
+
+
 router.route("/info/:memberId")
     .get(isAuth, showProfileInfo);
 
-router.route("/editInfo/:memberId")
-    .get(isAuth, showEditProfileInfo);
+// router.route("/editInfo/:memberId")
+//     .get(isAuth, showEditProfileInfo);
 
 router.route("/joinCourse/")
     // .post(isAuth, courseValidator, joinCourse, addMemberToCourse)

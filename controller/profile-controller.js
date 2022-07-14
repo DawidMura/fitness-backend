@@ -11,6 +11,7 @@
  * @showEditProfileInfo ermöglicht die Populate der Collections, Member, Devices and Courses
  ****************************************************************/
 import MemberSchema from "../model/memberSchema.js";
+import ProfileSchema from "../model/profileSchema.js";
 
 const getOneProfile = async (req, res) => {
     const memberId = req.params.memberId;
@@ -18,11 +19,31 @@ const getOneProfile = async (req, res) => {
     res.send(findOneMember);
 }
 
-const updateProfile = async (req, res) => {
+const updateProfile = async (req, res, next) => {
     const memberId = req.params.memberId;
     await MemberSchema.updateOne({ _id: memberId }, req.body);
-    res.send("Profile is updated!");
+    // res.send("Profile is updated!");
+    next();
 }
+
+
+const addProfileToMember = async (req, res) => {
+    const memberId = req.body.memberId;
+    const profileId = req.body.profileId;
+    try {
+        const selectedProfile = await ProfileSchema.findById({ _id: profileId })
+
+        selectedProfile.save();
+
+        res.json({ selectedProfile: selectedProfile });
+
+    }
+    catch (error) {
+        console.error(error)
+    }
+
+}
+
 
 const showProfileInfo = async (req, res) => {
     try {
@@ -35,6 +56,7 @@ const showProfileInfo = async (req, res) => {
         console.error(error);
     }
 }
+
 
 const showEditProfileInfo = async (req, res) => {
     try {
@@ -56,7 +78,16 @@ const deleteProfile = async (req, res) => {
 }
 
 
+const addProfile = async (req, res) => {
+    const newProfile = new ProfileSchema(req.body);
+    await newProfile.save();
+    res.send("new profile is added");
+}
+
+
+
+
 
 export {
-    getOneProfile, updateProfile, showProfileInfo, showEditProfileInfo, deleteProfile
+    getOneProfile, updateProfile, showProfileInfo, showEditProfileInfo, deleteProfile, addProfile, addProfileToMember
 };

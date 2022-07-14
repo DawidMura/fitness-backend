@@ -62,6 +62,7 @@ export const profileValidator = [
             throw new error("mobile must contain 11 digits");
         })
         .withMessage("mobile phone must have 11 digits "),
+
     check("address.street")
         .isString()
         .escape()

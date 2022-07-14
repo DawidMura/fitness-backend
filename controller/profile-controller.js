@@ -28,7 +28,7 @@ const showProfileInfo = async (req, res) => {
     try {
         const memberId = req.params.memberId;
         const profileInfo = await MemberSchema.find({ _id: memberId })
-            .populate("course_ids", "firstName lastName course_name device_name -_id")
+            .populate("course_ids device_ids", "firstName lastName course_name device_name -_id")
             .select("firstName lastName course_name device_name -_id")
         res.send(profileInfo);
     } catch (error) {
@@ -49,7 +49,14 @@ const showEditProfileInfo = async (req, res) => {
     }
 }
 
+const deleteProfile = async (req, res) => {
+    const memberId = req.params.memberId;
+    await MemberSchema.findByIdAndRemove(memberId);
+    res.send("Member is deleted!");
+}
+
+
 
 export {
-    getOneProfile, updateProfile, showProfileInfo, showEditProfileInfo
+    getOneProfile, updateProfile, showProfileInfo, showEditProfileInfo, deleteProfile
 };

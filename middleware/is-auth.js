@@ -18,6 +18,7 @@ export default async (req, res, next) => {
     if (decodedToken) {
       req.userId = decodedToken.userId;
       req.email = decodedToken.email;
+      req.role = decodedToken.role;
     }
   } catch (error) {
     console.debug("JWT Verification Error:", error.message);
@@ -27,21 +28,31 @@ export default async (req, res, next) => {
 }
 
 
-export const authRole = async (req, res, next) => {
-  const memberId = req.params.memberId;
+export const isAdmin = async (req, res, next) => {
 
-  const user = await MemberSchema.findById({ _id: memberId });
-  console.log(user);
-
-  if (user.roles === "admin") {
-    return res.send("<h2>Admin Page </h2>")
+  if (req.role === "admin") {
+    return next();
   }
-  else {
-    return res.sendStatus(404);
 
-  }
-  next();
+  res.sendStatus(403);
 }
+
+
+// export const authRole = async (req, res, next) => {
+//   const memberId = req.params.memberId;
+
+//   const user = await MemberSchema.findById({ _id: memberId });
+//   console.log(user);
+
+//   if (user.role === "admin") {
+//     return res.send("<h2>Admin Page </h2>")
+//   }
+//   else {
+//     return res.sendStatus(404);
+
+//   }
+//   next();
+// }
 
 
 

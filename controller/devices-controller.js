@@ -22,31 +22,20 @@ const getOneDevice = async (req, res) => {
     res.send(findOneDevice);
 }
 
-
-// const bookDevices = async (req, res) => {
-//     const memberId = req.params.memberId;
-//     try {
-//         await MemberSchema.updateOne({ _id: memberId }, { device_ids: req.body.devices });
-//         res.send("You have booked a device");
-//     }
-//     catch (error) {
-//         console.error(error);
-//     }
-// }
-
-
 const bookDevices = async (req, res, next) => {
     const memberId = req.body.memberId;
     try {
-        await MemberSchema.updateOne({ _id: memberId }, { $push: { device_ids: req.body.deviceId } });
-        next();
+        const currentMember = await MemberSchema.findById(memberId);
+        currentMember.device_ids.push(req.body.deviceId);
+        await currentMember.save();
+
     }
     catch (error) {
-        console.error(error);
+        console.error(error.message);
+        return res.send(error.message);
     }
+    next();
 }
-
-
 
 const addMemberToDevice = async (req, res) => {
     const memberId = req.body.memberId;
@@ -60,9 +49,6 @@ const addMemberToDevice = async (req, res) => {
         if (!selectedDevice.memberQuantity) {
             selectedDevice.memberQuantity = 1;
         }
-        // else {
-        //     selectedDevice.memberQuantity++;
-        // }
 
         selectedDevice.save();
 
@@ -74,9 +60,6 @@ const addMemberToDevice = async (req, res) => {
     }
 
 }
-
-
-
 
 const showDevicesInfo = async (req, res) => {
     try {
@@ -90,7 +73,6 @@ const showDevicesInfo = async (req, res) => {
         console.error(error);
     }
 }
-
 
 const addDevice = async (req, res) => {
     const newDevice = new DevicesSchema(req.body);

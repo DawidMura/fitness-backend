@@ -3,7 +3,7 @@ import { postRegister, postLogin, postLogout } from "../controller/auth-controll
 import { validateRequest } from "../middleware/validateRequest.js";
 import { registerValidator } from "../model/registerValidator.js"
 import { loginValidator } from "../model/loginValidator.js"
-import { authRole } from "../middleware/is-auth.js";
+// import { authRole } from "../middleware/is-auth.js";
 import isAuth from "../middleware/is-auth.js";
 const router = express.Router();
 
@@ -34,7 +34,7 @@ router.post("/logout",
 
 
 // ADMIN Route
-router.get("/admin/:memberId", isAuth, authRole);
+// router.get("/admin/:memberId", isAuth, isAdmin);
 
 
 

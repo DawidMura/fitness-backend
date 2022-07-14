@@ -7,7 +7,7 @@ import { body, check } from "express-validator";
  * werden sie in database nicht angenommen. 
  *******************************************************/
 export const courseValidator = [
-    body("name")
+    body("course_name")
         .isString()
         .escape()
         .trim()
@@ -20,5 +20,5 @@ export const courseValidator = [
     body("memberQuantity")
         .isNumeric()
         .withMessage("memberQuantity has to be a number")
-
+        .optional({ checkFalsy: true })
 ];

@@ -27,17 +27,24 @@ const getOneCourse = async (req, res) => {
 
 const joinCourse = async (req, res, next) => {
     const memberId = req.body.memberId;
+    const courseId = req.body.courseId;
+
     try {
         // await MemberSchema.updateOne({ _id: memberId }, { course_ids: req.body.courseId });
-        await MemberSchema.updateOne({ _id: memberId }, { $push: { course_ids: req.body.courseId } });
+        // await MemberSchema.updateOne({ _id: memberId }, { $push: { course_ids: req.body.courseId } }, { runValidators: true });
 
+        const currentMember = await MemberSchema.findById(memberId);
+        // debugger;
+        currentMember.course_ids.push(courseId);
+        await currentMember.save()
         // res.send("Your'e joined to  course")
-        next();
+
     }
     catch (error) {
-        console.error(error)
+        console.error(error.message);
+        return res.send(error.message);
     }
-
+    next();
 }
 
 
@@ -47,7 +54,7 @@ const addMemberToCourse = async (req, res) => {
     try {
         const selectedCourse = await CourseSchema.findById({ _id: courseId })
         if (selectedCourse.memberQuantity === 10) {
-            return res.send("Course is full");
+            return res.send("We have no more places for this course. You can choose the another one");
         }
 
         if (!selectedCourse.memberQuantity) {
@@ -67,7 +74,6 @@ const addMemberToCourse = async (req, res) => {
     }
 
 }
-
 
 
 const showCourseInfo = async (req, res) => {

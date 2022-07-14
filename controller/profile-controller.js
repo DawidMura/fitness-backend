@@ -11,7 +11,7 @@
  * @showEditProfileInfo ermöglicht die Populate der Collections, Member, Devices and Courses
  ****************************************************************/
 import MemberSchema from "../model/memberSchema.js";
-import ProfileSchema from "../model/profileSchema.js";
+// import ProfileSchema from "../model/profileSchema.js";
 
 const getOneProfile = async (req, res) => {
     const memberId = req.params.memberId;
@@ -19,31 +19,11 @@ const getOneProfile = async (req, res) => {
     res.send(findOneMember);
 }
 
-const updateProfile = async (req, res, next) => {
+const updateProfile = async (req, res) => {
     const memberId = req.params.memberId;
     await MemberSchema.updateOne({ _id: memberId }, req.body);
-    // res.send("Profile is updated!");
-    next();
+    res.send("Profile is updated!");
 }
-
-
-const addProfileToMember = async (req, res) => {
-    const memberId = req.body.memberId;
-    const profileId = req.body.profileId;
-    try {
-        const selectedProfile = await ProfileSchema.findById({ _id: profileId })
-
-        selectedProfile.save();
-
-        res.json({ selectedProfile: selectedProfile });
-
-    }
-    catch (error) {
-        console.error(error)
-    }
-
-}
-
 
 const showProfileInfo = async (req, res) => {
     try {
@@ -58,18 +38,18 @@ const showProfileInfo = async (req, res) => {
 }
 
 
-const showEditProfileInfo = async (req, res) => {
-    try {
-        const memberId = req.params.memberId;
-        const editInfo = await MemberSchema.find({ _id: memberId })
-            .populate("course_ids", "firstName lastName course_name device_name -_id")
-            .find({});
-        res.send(editInfo);
-    }
-    catch (error) {
-        console.error(error);
-    }
-}
+// const showEditProfileInfo = async (req, res) => {
+//     try {
+//         const memberId = req.params.memberId;
+//         const editInfo = await MemberSchema.find({ _id: memberId })
+//             .populate("course_ids", "firstName lastName course_name device_name -_id")
+//             .find({});
+//         res.send(editInfo);
+//     }
+//     catch (error) {
+//         console.error(error);
+//     }
+// }
 
 const deleteProfile = async (req, res) => {
     const memberId = req.params.memberId;
@@ -78,16 +58,13 @@ const deleteProfile = async (req, res) => {
 }
 
 
-const addProfile = async (req, res) => {
-    const newProfile = new ProfileSchema(req.body);
-    await newProfile.save();
-    res.send("new profile is added");
-}
-
-
-
+// const addProfile = async (req, res) => {
+//     const newProfile = new ProfileSchema(req.body);
+//     await newProfile.save();
+//     res.send("new profile is added");
+// }
 
 
 export {
-    getOneProfile, updateProfile, showProfileInfo, showEditProfileInfo, deleteProfile, addProfile, addProfileToMember
+    getOneProfile, updateProfile, showProfileInfo, deleteProfile
 };

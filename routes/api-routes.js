@@ -60,9 +60,9 @@ router.route("/bookDevices/")
 router.route("/edit/:memberId")
     .get(isAuth, getOneProfile)
     .put(
+        isAuth,
         profileValidator,
         validateRequest,
-        isAuth,
         updateProfile
     )
     .delete(isAuth, isAdmin, deleteProfile)

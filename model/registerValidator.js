@@ -26,6 +26,13 @@ export const registerValidator = [
         .isEmail()
         .withMessage("Has to be valid email")
         .normalizeEmail(),
+
+    body("course_ids")
+        .optional({ checkFalsy: true }),
+
+    body("device_ids")
+        .optional({ checkFalsy: true }),
+
     body("password")
         .isLength({ min: 5 })
         .withMessage("Password has to be at least 5 chars")

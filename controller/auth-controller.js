@@ -82,15 +82,14 @@ export const postLogin = async (req, res) => {
     });
 
 
-    res.cookie('isLogged', expiresInDate.toISOString(), {
+    res.cookie('isLogged', loggingUser.role, {
         httpOnly: false,
         maxAge: expiresInMs,
-        role: loggingUser.role,
         // TODO sicherer machen: FRONTEND => auslesen über accessToken
     })
 
 
-    return res.status(200).json({ msg: 'successfully logged in', accessToken: accessToken, email: loggingUser.email })
+    return res.status(200).json({ msg: 'successfully logged in', email: loggingUser.email })
 }
 
 /* @postLogout */

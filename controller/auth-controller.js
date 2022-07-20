@@ -93,24 +93,9 @@ export const postLogin = async (req, res) => {
 }
 
 /* @postLogout */
-export const postLogout = async (req, res) => {
-    const accessToken = req.cookies?.accessToken;
-    if (!accessToken) return res.sendStatus(204);
+export const postLogout = (req, res) => {
     res.clearCookie('accessToken');
     res.clearCookie('isLogged')
 
     return res.status(200).json({ msg: 'successfully logged out' })
 }
-
-
-
-
-// try {
-//     const adminId = ObjectId("62ca9e2e4f6f8e1abdd76eb1");
-//     const isAdmin = await MemberSchema.find({ _id: adminId })
-//     res.send(isAdmin);
-// }
-
-// catch (error) {
-//     return res.status(401).json({ error: msgAlert })
-// }

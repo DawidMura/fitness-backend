@@ -73,8 +73,8 @@ router.route("/edit/:memberId")
 
 
 router.route("/info/:memberId")
-    .get(isAuth, showProfileInfo);
-
+    // .get(isAuth, showProfileInfo);
+    .get(showProfileInfo);
 // router.route("/editInfo/:memberId")
 //     .get(isAuth, showEditProfileInfo);
 

@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import MemberSchema from "../model/memberSchema.js";
 import "dotenv/config";
 const PORT_CLIENT = process.env.PORT_CLIENT;
-const url = `http://localhost:${PORT_CLIENT}/userPanel`
+// const url = `http://localhost:${PORT_CLIENT}/userPanel`
 export default async (req, res, next) => {
   console.log("headers: ", req.headers)
   const authHeader = req.headers.authorization || req.headers.Authorization;

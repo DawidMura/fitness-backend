@@ -88,6 +88,12 @@ export const postLogin = async (req, res) => {
         // TODO sicherer machen: FRONTEND => auslesen über accessToken
     })
 
+    // new cookie 26 07
+    res.cookie('userId', loggingUser._id, {
+        httpOnly: true,
+        maxAge: expiresInMs,
+        // TODO sicherer machen: FRONTEND => auslesen über accessToken
+    })
 
     return res.status(200).json({ msg: 'successfully logged in', email: loggingUser.email })
 }
@@ -95,7 +101,7 @@ export const postLogin = async (req, res) => {
 /* @postLogout */
 export const postLogout = (req, res) => {
     res.clearCookie('accessToken');
-    res.clearCookie('isLogged')
-
+    res.clearCookie('isLogged');
+    res.clearCookie('userId');
     return res.status(200).json({ msg: 'successfully logged out' })
 }

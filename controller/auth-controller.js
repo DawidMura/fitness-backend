@@ -90,7 +90,7 @@ export const postLogin = async (req, res) => {
 
     // new cookie 26 07
     res.cookie('userId', loggingUser._id, {
-        httpOnly: true,
+        httpOnly: false,
         maxAge: expiresInMs,
         // TODO sicherer machen: FRONTEND => auslesen über accessToken
     })
